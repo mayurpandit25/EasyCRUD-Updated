@@ -1,20 +1,27 @@
-version: "3.8"
-services: 
+version: "3.9"
+services:
+
   backend:
     build:
       context: ./backend
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
+    container_name: backend-container
     ports:
-      - 8080:8080
- #   depends_on:
-  #     -db
+      - "8080:8080"
+    networks:
+      - my-net
 
   frontend:
-    build: 
-      context: ./frontend 
-      dockerfile: dockerfile
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend-container
     ports:
-      - 80:80 
+      - "80:80"
     depends_on:
-       - backend
-      
+      - backend
+    networks:
+      - my-net
+
+networks:
+  my-net:
